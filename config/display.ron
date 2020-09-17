@@ -1,0 +1,4 @@
+(
+  title: "Rumple's adventures",
+  dimensions: Some((400, 400)),
+)
