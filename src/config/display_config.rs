@@ -24,7 +24,7 @@ pub fn windowed() -> DisplayConfig{
     create_config(None)
 }
 
-pub fn full_screen() -> DisplayConfig{
+pub fn _full_screen() -> DisplayConfig{
     let el = EventsLoop::new();
     create_config(Some(
         MonitorIdent::from_primary(&el)))
