@@ -1,12 +1,17 @@
 [package]
 name = "rumple-s-adventures"
-version = "0.1.0"
+version = "0.0.1"
 authors = ["grzi <jeremy.thulliez@gmail.com>"]
 edition = "2018"
 
 [dependencies]
 amethyst = "0.15.3"
+# Logging
+fern = "0.6.0"
 log = "0.4.11"
+# Data access
+ron = "0.6.2"
+serde = "1.0.116"
 
 [features]
 default = ["metal"]
