@@ -1,0 +1,78 @@
+#![enable(implicit_some)]
+Container(
+    transform: (
+        id: "background",
+        anchor: Middle,
+        width: 1.,
+        height: 1.,
+        percent:true
+    ),
+    background: SolidColor(0, 0, 0, 0.8),
+    children: [
+        Button(
+                        transform: (
+                            id: "draggable_button",
+                            x: 0.5,
+                            y: 0.22,
+                            z: 3.,
+                            width: 0.2,
+                            height: 0.05,
+                            tab_order: 9,
+                            anchor: BottomLeft,
+                            mouse_reactive: true,
+                            draggable: false,
+                            percent: true
+                        ),
+                        button: (
+                            text: "New game",
+                            font_size: 30.,
+                            normal_text_color: (0.0, 0.0, 0.0, 1.0),
+                            normal_image: SolidColor(0.82, 0.83, 0.83, 1.0),
+                        )
+                    ),
+                    Button(
+                        transform: (
+                            id: "draggable_button",
+                            x: 0.5,
+                            y: 0.16,
+                            z: 3.,
+                            width: 0.2,
+                            height: 0.05,
+                            tab_order: 9,
+                            anchor: BottomLeft,
+                            mouse_reactive: true,
+                            draggable: false,
+                            percent: true
+                        ),
+                        button: (
+                            text: "Settings",
+                            font_size: 30.,
+                            normal_text_color: (0.0, 0.0, 0.0, 1.0),
+                            normal_image: SolidColor(0.82, 0.83, 0.83, 1.0),
+                        )
+                    ),
+        Button(
+            transform: (
+                id: "draggable_button",
+                x: 0.5,
+                y: 0.1,
+                z: 3.,
+                width: 0.2,
+                height: 0.05,
+                tab_order: 9,
+                anchor: BottomLeft,
+                mouse_reactive: true,
+                draggable: false,
+                percent: true
+            ),
+            button: (
+                text: "Quit",
+                font_size: 30.,
+                normal_text_color: (0.0, 0.0, 0.0, 1.0),
+                normal_image: SolidColor(0.82, 0.83, 0.83, 1.0),
+            )
+        ),
+
+
+    ],
+)
