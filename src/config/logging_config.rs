@@ -13,7 +13,7 @@ pub fn create() -> LoggerConfig {
         modules.push(module_level_filter_mask(*module, LevelFilter::Warn, should_set_full_debug));
     }
     modules.push(module_level_filter_mask("amethyst", LevelFilter::Warn, should_set_full_debug));
-
+    modules.push(module_level_filter_mask("gfx_backend_metal", LevelFilter::Error, should_set_full_debug));
     LoggerConfig{
         stdout: amethyst::StdoutLog::Colored,
         level_filter: amethyst::LogLevelFilter::Debug,
