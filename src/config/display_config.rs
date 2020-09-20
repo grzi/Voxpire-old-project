@@ -2,7 +2,7 @@ use amethyst::window::{DisplayConfig, MonitorIdent};
 use amethyst::winit::EventsLoop;
 
 fn create_config(fullscreen: Option<MonitorIdent>) -> DisplayConfig {
-    DisplayConfig{
+    DisplayConfig {
         title: "Rumple's adventures".to_string(),
         fullscreen,
         dimensions: None,
@@ -16,16 +16,15 @@ fn create_config(fullscreen: Option<MonitorIdent>) -> DisplayConfig {
         multitouch: false,
         resizable: true,
         transparent: false,
-        loaded_icon: None
+        loaded_icon: None,
     }
 }
 
-pub fn windowed() -> DisplayConfig{
+pub fn windowed() -> DisplayConfig {
     create_config(None)
 }
 
-pub fn _full_screen() -> DisplayConfig{
+pub fn _full_screen() -> DisplayConfig {
     let el = EventsLoop::new();
-    create_config(Some(
-        MonitorIdent::from_primary(&el)))
+    create_config(Some(MonitorIdent::from_primary(&el)))
 }
