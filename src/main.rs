@@ -3,13 +3,15 @@ mod states;
 mod systems;
 mod utilities;
 
-use amethyst::{Result, start_logger, utils::application_root_dir, GameDataBuilder, Application, assets::PrefabLoaderSystemDesc};
-use amethyst::renderer::{RenderingBundle, RenderToWindow, types::DefaultBackend, RenderShaded3D };
 use crate::states::main_state::{MainState, MyPrefabData};
 use amethyst::core::TransformBundle;
-use amethyst::input::{StringBindings, InputBundle};
+use amethyst::input::{InputBundle, StringBindings};
+use amethyst::renderer::{types::DefaultBackend, RenderShaded3D, RenderToWindow, RenderingBundle};
 use amethyst::ui::{RenderUi, UiBundle};
-use crate::systems::ui_systems::UiSystemEventHandlerSystemDesc;
+use amethyst::{
+    assets::PrefabLoaderSystemDesc, start_logger, utils::application_root_dir, Application,
+    GameDataBuilder, Result,
+};
 
 fn main() -> Result<()> {
     let user_config = config::user_config::retrieve_user_config();
@@ -19,7 +21,6 @@ fn main() -> Result<()> {
         .with_system_desc(PrefabLoaderSystemDesc::<MyPrefabData>::default(), "", &[])
         .with_bundle(TransformBundle::new())?
         .with_bundle(InputBundle::<StringBindings>::new())?
-        .with_system_desc(UiSystemEventHandlerSystemDesc::default(), "ui_handler", &[])
         .with_bundle(UiBundle::<StringBindings>::new())?
         .with_bundle(
             RenderingBundle::<DefaultBackend>::new()
@@ -32,7 +33,6 @@ fn main() -> Result<()> {
         )?
         .with_thread_local(systems::config_system::ConfigSystem);
 
-    Application::new(application_root_dir()?.join("assets"), MainState, game_data)?
-        .run();
+    Application::new(application_root_dir()?.join("assets"), MainState, game_data)?.run();
     Ok(())
 }

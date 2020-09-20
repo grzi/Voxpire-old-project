@@ -1,11 +1,7 @@
-use amethyst::{SimpleState, StateData, GameData, SimpleTrans, Trans};
-use amethyst::assets::{PrefabLoader, RonFormat};
-use amethyst::utils::scene::BasicScenePrefab;
-use amethyst::renderer::rendy::mesh::{Position, Normal, TexCoord};
-use amethyst::core::ecs::{WorldExt, Builder};
-use amethyst::ui::{UiCreator, UiTransform, UiButton};
-use amethyst::winit::DeviceEvent::Button;
 use crate::states::main_menu_state::MainMenuState;
+use amethyst::renderer::rendy::mesh::{Normal, Position, TexCoord};
+use amethyst::utils::scene::BasicScenePrefab;
+use amethyst::{GameData, SimpleState, SimpleTrans, StateData, Trans};
 use log::debug;
 pub type MyPrefabData = BasicScenePrefab<(Vec<Position>, Vec<Normal>, Vec<TexCoord>)>;
 
@@ -13,9 +9,7 @@ pub type MyPrefabData = BasicScenePrefab<(Vec<Position>, Vec<Normal>, Vec<TexCoo
 pub struct MainState;
 
 impl SimpleState for MainState {
-    fn on_start(&mut self, _data: StateData<'_, GameData<'_, '_>>) {
-
-    }
+    fn on_start(&mut self, _data: StateData<'_, GameData<'_, '_>>) {}
 
     fn update(&mut self, _data: &mut StateData<GameData>) -> SimpleTrans {
         debug!("Update main state");

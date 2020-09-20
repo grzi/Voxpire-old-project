@@ -1,18 +1,18 @@
+use crate::config::display_config;
+use crate::config::logging_config;
+use crate::utilities::data_access;
 use amethyst::window::DisplayConfig;
+use amethyst::LoggerConfig;
 use serde::Deserialize;
 use serde::Serialize;
-use amethyst::LoggerConfig;
-use crate::config::logging_config;
-use crate::config::display_config;
-use crate::utilities::data_access;
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct UserConfig {
     pub logger_config: LoggerConfig,
-    pub display_config: DisplayConfig
+    pub display_config: DisplayConfig,
 }
 
-impl UserConfig{
+impl UserConfig {
     fn new() -> UserConfig {
         UserConfig {
             logger_config: logging_config::create(),
@@ -30,7 +30,7 @@ pub fn retrieve_user_config() -> UserConfig {
                 _ => {}
             }
             new_user_config
-        },
-        Some(config) => config
+        }
+        Some(config) => config,
     }
 }
