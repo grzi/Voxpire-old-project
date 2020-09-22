@@ -1,10 +1,15 @@
-use ron::de::from_reader;
-use ron::ser::{to_string_pretty, PrettyConfig};
+use std::{
+    fs,
+    fs::File,
+    io::Write,
+    path::Path
+};
+
+use ron::{
+    de::from_reader,
+    ser::{PrettyConfig, to_string_pretty}
+};
 use serde::{de, ser};
-use std::fs;
-use std::fs::File;
-use std::io::Write;
-use std::path::Path;
 
 pub fn read_and_deserialize<'a, T>(file_path: &str) -> Option<T>
 where

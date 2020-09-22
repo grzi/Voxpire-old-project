@@ -1,10 +1,10 @@
-use crate::config::display_config;
-use crate::config::logging_config;
+use crate::config::{display_config, logging_config};
 use crate::utilities::data_access;
-use amethyst::window::DisplayConfig;
-use amethyst::LoggerConfig;
-use serde::Deserialize;
-use serde::Serialize;
+use amethyst::{
+    LoggerConfig,
+    window::DisplayConfig
+};
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct UserConfig {

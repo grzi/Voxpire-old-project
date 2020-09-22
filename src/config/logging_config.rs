@@ -1,8 +1,10 @@
 use crate::utilities::data_access::create_parents_directories_if_not_exist;
 use amethyst::LoggerConfig;
 use log::LevelFilter;
-use std::env;
-use std::path::{Path, PathBuf};
+use std::{
+    env,
+    path::{Path, PathBuf}
+};
 
 static WARN_MODULES: [&'static str; 5] = [
     "amethyst_rendy",

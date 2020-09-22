@@ -1,6 +1,7 @@
-use amethyst::core::ecs::{System, WriteExpect};
-use amethyst::winit::{Window};
-
+use amethyst::{
+    core::ecs::{System, WriteExpect},
+    winit::{Window}
+};
 pub struct ConfigSystem;
 
 impl<'s> System<'s> for ConfigSystem {
