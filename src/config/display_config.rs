@@ -1,5 +1,7 @@
-use amethyst::window::{DisplayConfig, MonitorIdent};
-use amethyst::winit::EventsLoop;
+use amethyst::{
+    window::{DisplayConfig, MonitorIdent},
+    winit::EventsLoop
+};
 
 fn create_config(fullscreen: Option<MonitorIdent>) -> DisplayConfig {
     DisplayConfig {

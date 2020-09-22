@@ -1,12 +1,13 @@
-use amethyst::{GameData, SimpleState, SimpleTrans, StateData, StateEvent, Trans};
-
-use amethyst::assets::{AssetStorage, Loader};
-use amethyst::core::ecs::{Builder, Entity, World, WorldExt};
-use amethyst::ui::{
-    Anchor, FontAsset, Interactable, LineMode, ScaleMode, UiEventType,
-    UiImage, UiText, UiTransform,
+use amethyst::{
+    GameData, SimpleState, SimpleTrans, StateData, StateEvent, Trans,
+    assets::{AssetStorage, Loader},
+    core::ecs::{Builder, Entity, World, WorldExt},
+    ui::{
+        Anchor, FontAsset, Interactable, LineMode, ScaleMode, UiEventType,
+        UiImage, UiText, UiTransform,
+    },
+    winit::{EventsLoop, MouseCursor, Window}
 };
-use amethyst::winit::{EventsLoop, MouseCursor, Window};
 use log::{debug, info, warn};
 
 const NEW_BUTTON: &str = "NEW_BUTTON";
