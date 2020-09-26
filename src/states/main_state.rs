@@ -1,11 +1,10 @@
 use crate::states::main_menu_state::MainMenuState;
 use amethyst::{
-    {GameData, SimpleState, SimpleTrans, StateData, Trans},
     renderer::rendy::mesh::{Normal, Position, TexCoord},
-    utils::scene::BasicScenePrefab
+    utils::scene::BasicScenePrefab,
+    {GameData, SimpleState, SimpleTrans, StateData, Trans},
 };
 use log::debug;
-
 
 pub type MyPrefabData = BasicScenePrefab<(Vec<Position>, Vec<Normal>, Vec<TexCoord>)>;
 

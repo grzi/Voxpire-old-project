@@ -1,13 +1,8 @@
-use std::{
-    fs,
-    fs::File,
-    io::Write,
-    path::Path
-};
+use std::{fs, fs::File, io::Write, path::Path};
 
 use ron::{
     de::from_reader,
-    ser::{PrettyConfig, to_string_pretty}
+    ser::{to_string_pretty, PrettyConfig},
 };
 use serde::{de, ser};
 
