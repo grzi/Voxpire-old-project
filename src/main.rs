@@ -1,16 +1,19 @@
 mod config;
+mod data_objects;
 mod states;
 mod systems;
 mod utilities;
 
 use crate::states::main_state::{MainState, MyPrefabData};
 use amethyst::{
-    start_logger, utils::application_root_dir, Application, GameDataBuilder, Result,
+    assets::PrefabLoaderSystemDesc,
     core::TransformBundle,
     input::{InputBundle, StringBindings},
     renderer::{types::DefaultBackend, RenderShaded3D, RenderToWindow, RenderingBundle},
+    start_logger,
     ui::{RenderUi, UiBundle},
-    assets::PrefabLoaderSystemDesc
+    utils::application_root_dir,
+    Application, GameDataBuilder, Result,
 };
 
 fn main() -> Result<()> {

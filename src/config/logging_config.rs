@@ -3,7 +3,7 @@ use amethyst::LoggerConfig;
 use log::LevelFilter;
 use std::{
     env,
-    path::{Path, PathBuf}
+    path::{Path, PathBuf},
 };
 
 static WARN_MODULES: [&'static str; 5] = [

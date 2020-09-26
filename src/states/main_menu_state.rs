@@ -1,12 +1,13 @@
+use crate::states::poc_state::PocState;
 use amethyst::{
-    GameData, SimpleState, SimpleTrans, StateData, StateEvent, Trans,
     assets::{AssetStorage, Loader},
     core::ecs::{Builder, Entity, World, WorldExt},
     ui::{
-        Anchor, FontAsset, Interactable, LineMode, ScaleMode, UiEventType,
-        UiImage, UiText, UiTransform,
+        Anchor, FontAsset, Interactable, LineMode, ScaleMode, UiEventType, UiImage, UiText,
+        UiTransform,
     },
-    winit::{EventsLoop, MouseCursor, Window}
+    winit::{EventsLoop, MouseCursor, Window},
+    GameData, SimpleState, SimpleTrans, StateData, StateEvent, Trans,
 };
 use log::{debug, info, warn};
 
@@ -38,11 +39,11 @@ impl MainMenuState {
         self.entity_ids = Some(self.unwrap_btn_ids());
     }
 
-    fn delete_buttons(&self, world: &World) -> bool{
+    fn delete_buttons(&self, world: &World) -> bool {
         let entities = world.entities_mut();
-        entities.delete(self.new_game_button.unwrap()).is_ok() &&
-        entities.delete(self.settings_button.unwrap()).is_ok() &&
-        entities.delete(self.quit_button.unwrap()).is_ok()
+        entities.delete(self.new_game_button.unwrap()).is_ok()
+            && entities.delete(self.settings_button.unwrap()).is_ok()
+            && entities.delete(self.quit_button.unwrap()).is_ok()
     }
 }
 
@@ -69,11 +70,12 @@ impl SimpleState for MainMenuState {
                 (target, ev_type)
                     if (buttons_ids.contains(&target)
                         && (UiEventType::HoverStart == ev_type
-                            || UiEventType::HoverStop == ev_type)) => {
-                                    handle_hover_event(&data, target, &ev_type)
+                            || UiEventType::HoverStop == ev_type)) =>
+                {
+                    handle_hover_event(&data, target, &ev_type)
                 }
                 (_a, _b) if (_a == _new && _b == UiEventType::Click) => {
-                    // TODO : Trans to game
+                    return Trans::Switch(Box::new(PocState::default()));
                 }
                 (_a, _b) if (_a == _settings && _b == UiEventType::Click) => {
                     let world = data.world;
@@ -188,8 +190,15 @@ fn handle_hover_event(data: &StateData<GameData>, target: u32, ev_type: &UiEvent
     let mut storage = data.world.write_storage::<UiImage>();
     let current_button_entity = data.world.entities().entity(target);
     storage.remove(current_button_entity);
-    if ! storage.insert(current_button_entity, to_btn_color(&ev_type)).is_ok() {
-        warn!("Error while trying to add UiImage to storage entity {:?} btn {:?}", current_button_entity, to_btn_color(&ev_type));
+    if !storage
+        .insert(current_button_entity, to_btn_color(&ev_type))
+        .is_ok()
+    {
+        warn!(
+            "Error while trying to add UiImage to storage entity {:?} btn {:?}",
+            current_button_entity,
+            to_btn_color(&ev_type)
+        );
     }
     data.world
         .fetch_mut::<Window>()

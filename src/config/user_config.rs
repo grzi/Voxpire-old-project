@@ -1,9 +1,6 @@
 use crate::config::{display_config, logging_config};
 use crate::utilities::data_access;
-use amethyst::{
-    LoggerConfig,
-    window::DisplayConfig
-};
+use amethyst::{window::DisplayConfig, LoggerConfig};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize, Serialize)]
