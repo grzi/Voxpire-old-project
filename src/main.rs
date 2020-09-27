@@ -19,11 +19,12 @@ use amethyst::{
 fn main() -> Result<()> {
     let user_config = config::user_config::retrieve_user_config();
     start_logger(user_config.logger_config);
-
     let game_data = GameDataBuilder::default()
         .with_system_desc(PrefabLoaderSystemDesc::<MyPrefabData>::default(), "", &[])
         .with_bundle(TransformBundle::new())?
-        .with_bundle(InputBundle::<StringBindings>::new())?
+        .with_bundle(
+            InputBundle::<StringBindings>::new().with_bindings(user_config.bindings_config),
+        )?
         .with_bundle(UiBundle::<StringBindings>::new())?
         .with_bundle(
             RenderingBundle::<DefaultBackend>::new()

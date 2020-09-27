@@ -3,31 +3,31 @@ use amethyst::renderer::types::MeshData;
 use amethyst::Error;
 
 pub enum CubeSide {
-    LEFT,
-    RIGHT,
-    TOP,
-    BOTTOM,
-    FRONT,
-    BACK,
+    Left,
+    Right,
+    Top,
+    Bottom,
+    Front,
+    Back,
 }
 enum CubeVertices {
-    FRONT_TOP_LEFT,
-    FRONT_TOP_RIGHT,
-    FRONT_BOTTOM_LEFT,
-    FRONT_BOTTOM_RIGHT,
-    BACK_TOP_LEFT,
-    BACK_TOP_RIGHT,
-    BACK_BOTTOM_LEFT,
-    BACK_BOTTOM_RIGHT,
+    FrontTopLeft,
+    FrontTopRight,
+    FrontBottomLeft,
+    FrontBottomRight,
+    BackTopLeft,
+    BackTopRight,
+    BackBottomLeft,
+    BackBottomRight,
 }
 pub fn create_cube() -> Result<MeshData, Error> {
     create_multiple_quads(vec![
-        CubeSide::LEFT,
-        CubeSide::TOP,
-        CubeSide::RIGHT,
-        CubeSide::BOTTOM,
-        CubeSide::FRONT,
-        CubeSide::BACK,
+        CubeSide::Left,
+        CubeSide::Top,
+        CubeSide::Right,
+        CubeSide::Bottom,
+        CubeSide::Front,
+        CubeSide::Back,
     ])
 }
 
@@ -50,113 +50,103 @@ pub fn create_multiple_quads(sides: Vec<CubeSide>) -> Result<MeshData, Error> {
         .into())
 }
 
-pub fn create_quad_mesh(side: CubeSide) -> Result<MeshData, Error> {
-    let tris = create_quad_tris(side);
-    Ok(MeshBuilder::new()
-        .with_vertices(tris.0)
-        .with_vertices(tris.1)
-        .with_vertices(tris.2)
-        .into())
-}
-
 fn create_quad_tris(cube_side: CubeSide) -> (Vec<Position>, Vec<Normal>, Vec<TexCoord>) {
     match cube_side {
-        CubeSide::FRONT => (
+        CubeSide::Front => (
             vec![
-                vertice_of(CubeVertices::FRONT_TOP_LEFT),
-                vertice_of(CubeVertices::FRONT_BOTTOM_LEFT),
-                vertice_of(CubeVertices::FRONT_TOP_RIGHT),
-                vertice_of(CubeVertices::FRONT_TOP_RIGHT),
-                vertice_of(CubeVertices::FRONT_BOTTOM_LEFT),
-                vertice_of(CubeVertices::FRONT_BOTTOM_RIGHT),
+                vertice_of(CubeVertices::FrontTopLeft),
+                vertice_of(CubeVertices::FrontBottomLeft),
+                vertice_of(CubeVertices::FrontTopRight),
+                vertice_of(CubeVertices::FrontTopRight),
+                vertice_of(CubeVertices::FrontBottomLeft),
+                vertice_of(CubeVertices::FrontBottomRight),
             ],
-            vec![normal_of(CubeSide::FRONT); 6],
+            vec![normal_of(CubeSide::Front); 6],
             vec![TexCoord([0., 0.]); 6],
         ),
-        CubeSide::TOP => (
+        CubeSide::Top => (
             vec![
-                vertice_of(CubeVertices::FRONT_TOP_LEFT),
-                vertice_of(CubeVertices::BACK_TOP_RIGHT),
-                vertice_of(CubeVertices::BACK_TOP_LEFT),
-                vertice_of(CubeVertices::BACK_TOP_RIGHT),
-                vertice_of(CubeVertices::FRONT_TOP_LEFT),
-                vertice_of(CubeVertices::FRONT_TOP_RIGHT),
+                vertice_of(CubeVertices::FrontTopLeft),
+                vertice_of(CubeVertices::BackTopRight),
+                vertice_of(CubeVertices::BackTopLeft),
+                vertice_of(CubeVertices::BackTopRight),
+                vertice_of(CubeVertices::FrontTopLeft),
+                vertice_of(CubeVertices::FrontTopRight),
             ],
-            vec![normal_of(CubeSide::TOP); 6],
+            vec![normal_of(CubeSide::Top); 6],
             vec![TexCoord([0., 0.]); 6],
         ),
-        CubeSide::RIGHT => (
+        CubeSide::Right => (
             vec![
-                vertice_of(CubeVertices::FRONT_TOP_RIGHT),
-                vertice_of(CubeVertices::BACK_TOP_RIGHT),
-                vertice_of(CubeVertices::FRONT_BOTTOM_RIGHT),
-                vertice_of(CubeVertices::FRONT_BOTTOM_RIGHT),
-                vertice_of(CubeVertices::BACK_TOP_RIGHT),
-                vertice_of(CubeVertices::BACK_BOTTOM_RIGHT),
+                vertice_of(CubeVertices::FrontTopRight),
+                vertice_of(CubeVertices::BackTopRight),
+                vertice_of(CubeVertices::FrontBottomRight),
+                vertice_of(CubeVertices::FrontBottomRight),
+                vertice_of(CubeVertices::BackTopRight),
+                vertice_of(CubeVertices::BackBottomRight),
             ],
-            vec![normal_of(CubeSide::RIGHT); 6],
+            vec![normal_of(CubeSide::Right); 6],
             vec![TexCoord([0., 0.]); 6],
         ),
-        CubeSide::BOTTOM => (
+        CubeSide::Bottom => (
             vec![
-                vertice_of(CubeVertices::FRONT_BOTTOM_LEFT),
-                vertice_of(CubeVertices::BACK_BOTTOM_LEFT),
-                vertice_of(CubeVertices::FRONT_BOTTOM_RIGHT),
-                vertice_of(CubeVertices::FRONT_BOTTOM_RIGHT),
-                vertice_of(CubeVertices::BACK_BOTTOM_LEFT),
-                vertice_of(CubeVertices::BACK_BOTTOM_RIGHT),
+                vertice_of(CubeVertices::FrontBottomLeft),
+                vertice_of(CubeVertices::BackBottomLeft),
+                vertice_of(CubeVertices::FrontBottomRight),
+                vertice_of(CubeVertices::FrontBottomRight),
+                vertice_of(CubeVertices::BackBottomLeft),
+                vertice_of(CubeVertices::BackBottomRight),
             ],
-            vec![normal_of(CubeSide::BOTTOM); 6],
+            vec![normal_of(CubeSide::Bottom); 6],
             vec![TexCoord([0., 0.]); 6],
         ),
-        CubeSide::LEFT => (
+        CubeSide::Left => (
             vec![
-                vertice_of(CubeVertices::FRONT_TOP_LEFT),
-                vertice_of(CubeVertices::BACK_TOP_LEFT),
-                vertice_of(CubeVertices::FRONT_BOTTOM_LEFT),
-                vertice_of(CubeVertices::FRONT_BOTTOM_LEFT),
-                vertice_of(CubeVertices::BACK_TOP_LEFT),
-                vertice_of(CubeVertices::BACK_BOTTOM_LEFT),
+                vertice_of(CubeVertices::FrontTopLeft),
+                vertice_of(CubeVertices::BackTopLeft),
+                vertice_of(CubeVertices::FrontBottomLeft),
+                vertice_of(CubeVertices::FrontBottomLeft),
+                vertice_of(CubeVertices::BackTopLeft),
+                vertice_of(CubeVertices::BackBottomLeft),
             ],
-            vec![normal_of(CubeSide::LEFT); 6],
+            vec![normal_of(CubeSide::Left); 6],
             vec![TexCoord([0., 0.]); 6],
         ),
-        CubeSide::BACK => (
+        CubeSide::Back => (
             vec![
-                vertice_of(CubeVertices::BACK_TOP_LEFT),
-                vertice_of(CubeVertices::BACK_BOTTOM_LEFT),
-                vertice_of(CubeVertices::BACK_TOP_RIGHT),
-                vertice_of(CubeVertices::BACK_TOP_RIGHT),
-                vertice_of(CubeVertices::BACK_BOTTOM_LEFT),
-                vertice_of(CubeVertices::BACK_BOTTOM_RIGHT),
+                vertice_of(CubeVertices::BackTopLeft),
+                vertice_of(CubeVertices::BackBottomLeft),
+                vertice_of(CubeVertices::BackTopRight),
+                vertice_of(CubeVertices::BackTopRight),
+                vertice_of(CubeVertices::BackBottomLeft),
+                vertice_of(CubeVertices::BackBottomRight),
             ],
-            vec![normal_of(CubeSide::BACK); 6],
+            vec![normal_of(CubeSide::Back); 6],
             vec![TexCoord([0., 0.]); 6],
         ),
-        _ => (vec![], vec![], vec![]),
     }
 }
 
 fn vertice_of(cube_vertice: CubeVertices) -> Position {
     match cube_vertice {
-        CubeVertices::FRONT_TOP_LEFT => return Position([0., 0., 1.]),
-        CubeVertices::FRONT_TOP_RIGHT => return Position([1., 0., 1.]),
-        CubeVertices::FRONT_BOTTOM_RIGHT => return Position([1., 0., 0.]),
-        CubeVertices::FRONT_BOTTOM_LEFT => return Position([0., 0., 0.]),
-        CubeVertices::BACK_TOP_LEFT => return Position([0., 1., 1.]),
-        CubeVertices::BACK_TOP_RIGHT => return Position([1., 1., 1.]),
-        CubeVertices::BACK_BOTTOM_RIGHT => return Position([1., 1., 0.]),
-        CubeVertices::BACK_BOTTOM_LEFT => return Position([0., 1., 0.]),
+        CubeVertices::FrontTopLeft => return Position([0., 0., 1.]),
+        CubeVertices::FrontTopRight => return Position([1., 0., 1.]),
+        CubeVertices::FrontBottomRight => return Position([1., 0., 0.]),
+        CubeVertices::FrontBottomLeft => return Position([0., 0., 0.]),
+        CubeVertices::BackTopLeft => return Position([0., 1., 1.]),
+        CubeVertices::BackTopRight => return Position([1., 1., 1.]),
+        CubeVertices::BackBottomRight => return Position([1., 1., 0.]),
+        CubeVertices::BackBottomLeft => return Position([0., 1., 0.]),
     };
 }
 
 fn normal_of(cube_side: CubeSide) -> Normal {
     match cube_side {
-        CubeSide::BACK => Normal([0., 0., 1.]),
-        CubeSide::FRONT => Normal([0., 0., -1.]),
-        CubeSide::LEFT => Normal([0., -1., 0.]),
-        CubeSide::RIGHT => Normal([0., 1., 0.]),
-        CubeSide::TOP => Normal([1., 0., 0.]),
-        CubeSide::BOTTOM => Normal([-1., 0., 0.]),
+        CubeSide::Back => Normal([0., 0., 1.]),
+        CubeSide::Front => Normal([0., 0., -1.]),
+        CubeSide::Left => Normal([0., -1., 0.]),
+        CubeSide::Right => Normal([0., 1., 0.]),
+        CubeSide::Top => Normal([1., 0., 0.]),
+        CubeSide::Bottom => Normal([-1., 0., 0.]),
     }
 }
