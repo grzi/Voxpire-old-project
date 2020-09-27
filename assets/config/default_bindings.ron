@@ -1,0 +1,14 @@
+(
+	axes: {
+		"leftright": Emulated(
+            pos: Key(Right),
+            neg: Key(Left)
+        )
+	},
+	actions: {
+		"accelerate": [ [Key(S)]],
+		"rotate": [ [Key(Z)]],
+		"left": [ [Key(Q)]],
+		"right": [ [Key(D)]],
+	},
+)

@@ -1,17 +1,14 @@
 use amethyst::{GameData, SimpleState, SimpleTrans, StateData, Trans};
 
 use crate::utilities::geometry;
-use crate::utilities::geometry::CubeSide;
 use amethyst::assets::{AssetLoaderSystemData, Handle, Loader};
 use amethyst::core::ecs::{Builder, World, WorldExt};
 use amethyst::core::math::Vector3;
 use amethyst::core::Transform;
 use amethyst::renderer::light::{Light, PointLight};
-use amethyst::renderer::palette::{LinSrgba, Srgb, Srgba};
-use amethyst::renderer::rendy::mesh::Indices;
+use amethyst::renderer::palette::{Srgb, Srgba};
 use amethyst::renderer::rendy::texture::palette::load_from_srgba;
-use amethyst::renderer::rendy::texture::Texture;
-use amethyst::renderer::{Backend, Camera, Material, MaterialDefaults};
+use amethyst::renderer::{Camera, Material, MaterialDefaults};
 
 #[derive(Default)]
 pub struct PocState;
