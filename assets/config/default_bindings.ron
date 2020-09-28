@@ -6,6 +6,7 @@
         )
 	},
 	actions: {
+	    "open-developer-console": [[Key(At)]],
 		"accelerate": [ [Key(S)]],
 		"rotate": [ [Key(Z)]],
 		"left": [ [Key(Q)]],

@@ -99,7 +99,7 @@ impl SimpleState for MainMenuState {
     }
 
     fn update(&mut self, _data: &mut StateData<GameData>) -> SimpleTrans {
-        debug!("Update main menu state");
+        //debug!("Update main menu state");
         Trans::None
     }
 }
