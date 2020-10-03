@@ -9,7 +9,7 @@ pub fn create_input_transform () -> UiTransform{
         Anchor::TopLeft,
         Anchor::TopLeft,
         0.,
-        0.0,
+        -0.20,
         0.,
         1.0,
         0.03,
@@ -18,25 +18,58 @@ pub fn create_input_transform () -> UiTransform{
     t
 }
 
+pub fn create_output_transform () -> UiTransform {
+    let mut t = UiTransform::new(
+        String::from("developer-console-output-transform"),
+        Anchor::TopLeft,
+        Anchor::TopLeft,
+        0.,
+        0.,
+        0.,
+        1.0,
+        0.2,
+    );
+    t.scale_mode = ScaleMode::Percent;
+    t
+}
+
 pub fn create_ui_text(developer_resource: &Write<DeveloperConsoleResource>,
-                      loader: ReadExpect<Loader>,
-                      font_asset: Read<AssetStorage<FontAsset>>) -> UiText {
+                      loader: &ReadExpect<Loader>,
+                      font_asset: &Read<AssetStorage<FontAsset>>) -> UiText {
     let font = developer_resource.font_handle.clone();
     let font = if let Some(f) = font {
         f
     }else{
-        amethyst::ui::get_default_font(&loader, &font_asset)
+        amethyst::ui::get_default_font(loader, font_asset)
     };
 
   UiText::new(font,
-        String::from("Heullohs"),
+        String::from(""),
         [1.0, 1.0, 1.0, 1.],
-        20.,
+        25.,
         LineMode::Single,
         Anchor::MiddleLeft,
     )
 }
 
+pub fn create_output_text(developer_resource: &Write<DeveloperConsoleResource>,
+                      loader: &ReadExpect<Loader>,
+                      font_asset: &Read<AssetStorage<FontAsset>>) -> UiText {
+    let font = developer_resource.font_handle.clone();
+    let font = if let Some(f) = font {
+        f
+    }else{
+        amethyst::ui::get_default_font(loader, font_asset)
+    };
+
+    UiText::new(font,
+                String::from(""),
+                [1.0, 1.0, 1.0, 1.],
+                25.,
+                LineMode::Wrap,
+                Anchor::BottomLeft,
+    )
+}
 pub fn create_text_editing() -> TextEditing {
     TextEditing::new(100, [0., 0.5, 0.2, 1.], [0., 1., 1., 1.], true)
 }
