@@ -5,6 +5,8 @@ use amethyst::{
     {GameData, SimpleState, SimpleTrans, StateData, Trans},
 };
 use log::debug;
+use amethyst::core::ecs::WorldExt;
+use crate::utilities::developer::developer_console::DeveloperConsoleResource;
 
 pub type MyPrefabData = BasicScenePrefab<(Vec<Position>, Vec<Normal>, Vec<TexCoord>)>;
 
@@ -12,10 +14,12 @@ pub type MyPrefabData = BasicScenePrefab<(Vec<Position>, Vec<Normal>, Vec<TexCoo
 pub struct MainState;
 
 impl SimpleState for MainState {
-    fn on_start(&mut self, _data: StateData<'_, GameData<'_, '_>>) {}
+    fn on_start(&mut self, _data: StateData<'_, GameData<'_, '_>>) {
+        _data.world.insert(DeveloperConsoleResource::new());
+    }
 
     fn update(&mut self, _data: &mut StateData<GameData>) -> SimpleTrans {
-        debug!("Update main state");
+        //debug!("Update main state");
         Trans::Switch(Box::new(MainMenuState::default()))
     }
 }
