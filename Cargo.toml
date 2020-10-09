@@ -6,12 +6,14 @@ edition = "2018"
 
 [dependencies]
 amethyst = "0.15.3"
+amethyst-developer-console = { git = "https://github.com/Voxpire/amethyst-developer-console" }
 # Logging
 fern = "0.6.0"
 log = "0.4.11"
 # Data access
 ron = "0.6.2"
 serde = "1.0.116"
+
 
 [features]
 default = ["metal"]

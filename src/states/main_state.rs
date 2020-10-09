@@ -6,7 +6,7 @@ use amethyst::{
 };
 use log::debug;
 use amethyst::core::ecs::WorldExt;
-use crate::utilities::developer::developer_console::DeveloperConsoleResource;
+use amethyst_developer_console::developer_console::DeveloperConsoleResource;
 
 pub type MyPrefabData = BasicScenePrefab<(Vec<Position>, Vec<Normal>, Vec<TexCoord>)>;
 
