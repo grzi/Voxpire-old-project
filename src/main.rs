@@ -6,7 +6,7 @@ mod utilities;
 
 use crate::states::main_state::{MainState, MyPrefabData};
 use amethyst::{assets::PrefabLoaderSystemDesc, core::TransformBundle, input::{InputBundle, StringBindings}, renderer::{types::DefaultBackend, RenderShaded3D, RenderToWindow, RenderingBundle}, start_logger, ui::{RenderUi, UiBundle}, utils::application_root_dir, Application, GameDataBuilder, Result, DataInit};
-use crate::utilities::developer::developer_console::DeveloperConsoleSystem;
+use amethyst_developer_console::developer_console::DeveloperConsoleSystem;
 
 fn main() -> Result<()> {
     let user_config = config::user_config::retrieve_user_config();
