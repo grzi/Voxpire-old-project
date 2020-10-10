@@ -4,8 +4,6 @@ use amethyst::{
     utils::scene::BasicScenePrefab,
     {GameData, SimpleState, SimpleTrans, StateData, Trans},
 };
-use log::debug;
-use amethyst::core::ecs::WorldExt;
 use amethyst_developer_console::developer_console::DeveloperConsoleResource;
 
 pub type MyPrefabData = BasicScenePrefab<(Vec<Position>, Vec<Normal>, Vec<TexCoord>)>;

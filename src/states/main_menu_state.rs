@@ -9,7 +9,7 @@ use amethyst::{
     winit::{EventsLoop, MouseCursor, Window},
     GameData, SimpleState, SimpleTrans, StateData, StateEvent, Trans,
 };
-use log::{debug, info, warn};
+use log::{info, warn};
 
 const NEW_BUTTON: &str = "NEW_BUTTON";
 const SETTINGS_BUTTON: &str = "SETTINGS_BUTTON";
