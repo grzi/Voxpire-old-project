@@ -16,7 +16,6 @@ serde = "1.0.116"
 
 
 [features]
-default = ["metal"]
 empty = ["amethyst/empty"]
 metal = ["amethyst/metal"]
 vulkan = ["amethyst/vulkan"]
