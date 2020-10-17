@@ -6,21 +6,20 @@ use ron::{
 };
 use serde::{de, ser};
 
-pub fn read_and_deserialize<'a, T>(file_path: &str) -> Option<T>
+pub fn read_and_deserialize<T>(file_path: &str) -> Option<T>
 where
     T: de::DeserializeOwned,
 {
-    match File::open(data_path(file_path)) {
-        Ok(file) => match from_reader(file) {
+    if let Ok(file) = File::open(data_path(file_path)) {
+        match from_reader(file) {
             Ok(x) => return Some(x),
             Err(e) => println!("Failed to deserialize {} : {}", file_path, e),
-        },
-        _ => {}
+        }
     };
     None
 }
 
-pub fn save_to_file<'a, T>(data: &T, file_path: &str) -> Result<(), DataAccessError>
+pub fn save_to_file<T>(data: &T, file_path: &str) -> Result<(), DataAccessError>
 where
     T: ser::Serialize,
 {
@@ -38,18 +37,15 @@ where
                         .map_err(|_e| DataAccessError::new());
                 }
             }
-            return Err(DataAccessError::new());
+            Err(DataAccessError::new())
         }
     }
 }
 
 pub fn create_parents_directories_if_not_exist(file_path: &Path) -> Result<(), DataAccessError> {
     if let Some(directory) = file_path.parent() {
-        if let Err(_) = fs::read_dir(directory) {
-            match fs::create_dir_all(directory) {
-                Err(_e) => return Err(DataAccessError::new()),
-                _ => {}
-            }
+        if fs::read_dir(directory).is_err() && fs::create_dir_all(directory).is_err() {
+            return Err(DataAccessError::new())
         }
     }
     Ok(())

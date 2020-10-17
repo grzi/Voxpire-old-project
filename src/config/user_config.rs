@@ -25,9 +25,8 @@ pub fn retrieve_user_config() -> UserConfig {
     match data_access::read_and_deserialize::<UserConfig>("user_config.ron") {
         None => {
             let new_user_config = UserConfig::new();
-            match data_access::save_to_file(&new_user_config, "user_config.ron") {
-                Err(_e) => println!("Impossible to save user configuration..."),
-                _ => {}
+            if data_access::save_to_file(&new_user_config, "user_config.ron").is_err() {
+                println!("Impossible to save user configuration...");
             }
             new_user_config
         }

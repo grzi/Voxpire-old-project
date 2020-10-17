@@ -6,7 +6,7 @@ use std::{
     path::{Path, PathBuf},
 };
 
-static WARN_MODULES: [&'static str; 5] = [
+static WARN_MODULES: [&str; 5] = [
     "amethyst_rendy",
     "amethyst_assets",
     "rendy_chain",

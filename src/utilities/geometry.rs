@@ -129,15 +129,15 @@ fn create_quad_tris(cube_side: CubeSide) -> (Vec<Position>, Vec<Normal>, Vec<Tex
 
 fn vertice_of(cube_vertice: CubeVertices) -> Position {
     match cube_vertice {
-        CubeVertices::FrontTopLeft => return Position([0., 0., 1.]),
-        CubeVertices::FrontTopRight => return Position([1., 0., 1.]),
-        CubeVertices::FrontBottomRight => return Position([1., 0., 0.]),
-        CubeVertices::FrontBottomLeft => return Position([0., 0., 0.]),
-        CubeVertices::BackTopLeft => return Position([0., 1., 1.]),
-        CubeVertices::BackTopRight => return Position([1., 1., 1.]),
-        CubeVertices::BackBottomRight => return Position([1., 1., 0.]),
-        CubeVertices::BackBottomLeft => return Position([0., 1., 0.]),
-    };
+        CubeVertices::FrontTopLeft => Position([0., 0., 1.]),
+        CubeVertices::FrontTopRight => Position([1., 0., 1.]),
+        CubeVertices::FrontBottomRight => Position([1., 0., 0.]),
+        CubeVertices::FrontBottomLeft => Position([0., 0., 0.]),
+        CubeVertices::BackTopLeft => Position([0., 1., 1.]),
+        CubeVertices::BackTopRight => Position([1., 1., 1.]),
+        CubeVertices::BackBottomRight => Position([1., 1., 0.]),
+        CubeVertices::BackBottomLeft => Position([0., 1., 0.]),
+    }
 }
 
 fn normal_of(cube_side: CubeSide) -> Normal {

@@ -16,21 +16,18 @@ impl<'s> System<'s> for DebugSystem {
     );
 
     fn run(&mut self, mut data: Self::SystemData) {
-        match data.0.read_last_command() {
-            Some(thing) => {
-                handle_command(thing, data.1, data.2);
-            },
-            _ => {}
+        if let Some(thing) = data.0.read_last_command() {
+            handle_command(thing, data.1, data.2);
         };
     }
 }
 
 fn handle_command(command: String, cameras : ReadStorage<Camera>, mut transforms: WriteStorage<Transform>) {
-    const MOVE_CAMERA: &'static str = "move_camera ";
+    const MOVE_CAMERA: &str = "move_camera ";
     match command {
         mut camera_movement if camera_movement.starts_with(MOVE_CAMERA) => {
             let camera_movement = camera_movement.split_off(12);
-            let args : Vec<&str> = camera_movement.split(" ").collect();
+            let args : Vec<&str> = camera_movement.split(' ').collect();
             if args.len() == 3 {
                 for (_, transform) in (&cameras, &mut transforms).join() {
                     if let Ok(result) = convert_params_to_xyz(args.get(0).unwrap(), args.get(1).unwrap(), args.get(2).unwrap()) {
