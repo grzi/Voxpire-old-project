@@ -81,7 +81,7 @@ impl SimpleState for MainMenuState {
                     let world = data.world;
                     {
                         let window = world.fetch_mut::<Window>();
-                        if let None = window.get_fullscreen() {
+                        if window.get_fullscreen().is_none() {
                             let el = EventsLoop::new();
                             window.set_fullscreen(Some(el.get_primary_monitor()));
                         } else {
@@ -108,7 +108,7 @@ fn to_cursor(ev_type: &UiEventType) -> MouseCursor {
     if &UiEventType::HoverStart == ev_type {
         return MouseCursor::Hand;
     }
-    return MouseCursor::Default;
+    MouseCursor::Default
 }
 
 fn to_btn_color(ev_type: &UiEventType) -> UiImage {
@@ -190,9 +190,9 @@ fn handle_hover_event(data: &StateData<GameData>, target: u32, ev_type: &UiEvent
     let mut storage = data.world.write_storage::<UiImage>();
     let current_button_entity = data.world.entities().entity(target);
     storage.remove(current_button_entity);
-    if !storage
+    if storage
         .insert(current_button_entity, to_btn_color(&ev_type))
-        .is_ok()
+        .is_err()
     {
         warn!(
             "Error while trying to add UiImage to storage entity {:?} btn {:?}",
