@@ -1,6 +1,6 @@
 use amethyst::{GameData, SimpleState, SimpleTrans, StateData, Trans};
 
-use crate::utilities::geometry;
+use crate::utilities::geometry::meshdata_helper;
 use amethyst::assets::{AssetLoaderSystemData, Handle, Loader};
 use amethyst::core::ecs::{Builder, World, WorldExt};
 use amethyst::core::math::Vector3;
@@ -21,7 +21,7 @@ impl SimpleState for PocState {
         let (mesh, mat) = {
             let mesh = world.exec(
                 |loader: AssetLoaderSystemData<amethyst::renderer::types::Mesh>| {
-                    loader.load_from_data(geometry::create_cube().unwrap(), ())
+                    loader.load_from_data(meshdata_helper::create_cuboid(None).unwrap(), ())
                 },
             );
 
