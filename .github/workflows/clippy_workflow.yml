@@ -1,5 +1,7 @@
-on: pull_request
-name: Apply clippy comments to pull request
+on:
+  push:
+    branch: main
+name: Apply clippy and PR changes
 jobs:
   clippy_check:
     runs-on: ubuntu-latest
@@ -13,7 +15,12 @@ jobs:
       - name: install lib
         run: sudo apt install libasound2-dev
       - run: rustup component add clippy
-      - uses: actions-rs/clippy-check@v1
+      - run: cargo clippy --fix -Z unstable-options --features vulkan
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          args: --features vulkan
+          branch-suffix: timestamp
+          commit-message: "style(lint): automatically applied clippy lint"
+          title: "Automatic lint from clippy"
+
