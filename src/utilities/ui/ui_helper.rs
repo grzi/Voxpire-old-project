@@ -1,6 +1,6 @@
 use amethyst::ui::{UiTransform, Anchor, ScaleMode, UiText, FontHandle, LineMode, UiImage};
-use amethyst::core::ecs::ReadExpect;
-use amethyst::assets::Loader;
+
+
 
 pub fn header_bar_transform() -> UiTransform {
     let mut t = UiTransform::new(
