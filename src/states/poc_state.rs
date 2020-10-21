@@ -10,7 +10,6 @@ use amethyst::renderer::palette::{Srgb, Srgba};
 use amethyst::renderer::rendy::texture::palette::load_from_srgba;
 use amethyst::renderer::{Camera, Material, MaterialDefaults};
 use amethyst::ui::TtfFormat;
-use log::info;
 
 #[derive(Default)]
 pub struct PocState;
