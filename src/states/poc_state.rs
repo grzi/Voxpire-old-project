@@ -10,9 +10,9 @@ use amethyst::renderer::palette::{Srgb, Srgba};
 use amethyst::renderer::rendy::texture::palette::load_from_srgba;
 use amethyst::renderer::{Camera, Material, MaterialDefaults};
 use amethyst::ui::TtfFormat;
-use crate::resources::ui::time::TimeResource;
+use crate::ui::time::time_resource::TimeResource;
+use crate::ui::time::TimeComponent;
 use crate::utilities::traits::Tickable;
-use crate::components::ui::time::TimeComponent;
 
 #[derive(Default)]
 pub struct PocState;
@@ -71,13 +71,13 @@ fn initialise_ui(world: &mut World) {
         &world.read_resource(),
     );
 
-    let hour_transform = crate::utilities::ui::ui_helper::horizontal_grid_transform(7, 8, String::from("test_hour"));
-    let header_transform = crate::utilities::ui::ui_helper::header_bar_transform();
-    let ui_text = crate::utilities::ui::ui_helper::create_header_ui_text(font, String::from(""));
+    let hour_transform = crate::ui::ui_helper::horizontal_grid_transform(7, 8, String::from("test_hour"));
+    let header_transform = crate::ui::ui_helper::header_bar_transform();
+    let ui_text = crate::ui::ui_helper::create_header_ui_text(font, String::from(""));
     world
         .create_entity()
         .with(header_transform)
-        .with(crate::utilities::ui::ui_helper::create_header_image())
+        .with(crate::ui::ui_helper::create_header_image())
         .build();
     world
         .create_entity()
