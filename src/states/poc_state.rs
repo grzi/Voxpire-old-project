@@ -10,6 +10,9 @@ use amethyst::renderer::palette::{Srgb, Srgba};
 use amethyst::renderer::rendy::texture::palette::load_from_srgba;
 use amethyst::renderer::{Camera, Material, MaterialDefaults};
 use amethyst::ui::TtfFormat;
+use crate::resources::ui::time::TimeResource;
+use crate::utilities::traits::Tickable;
+use crate::components::ui::time::TimeComponent;
 
 #[derive(Default)]
 pub struct PocState;
@@ -26,6 +29,11 @@ impl SimpleState for PocState {
     fn update(&mut self, _data: &mut StateData<GameData>) -> SimpleTrans {
         Trans::None
     }
+
+    fn fixed_update(&mut self, data: StateData<'_, GameData<'_, '_>>) -> SimpleTrans {
+        data.world.entry::<TimeResource>().or_insert(TimeResource::new()).tick();
+        Trans::None
+    }
 }
 
 fn initialise_camera(world: &mut World) {
@@ -35,7 +43,7 @@ fn initialise_camera(world: &mut World) {
 
     world
         .create_entity()
-        .with(Camera::standard_3d(100., 100.))
+        .with(Camera::standard_3d(1920., 1080.))
         .with(transform)
         .build();
 }
@@ -57,7 +65,7 @@ fn initialise_lights(world: &mut World) {
 
 fn initialise_ui(world: &mut World) {
     let font = world.read_resource::<Loader>().load(
-        "fonts/square.ttf",
+        "fonts/ubuntu-regular.ttf",
         TtfFormat,
         (),
         &world.read_resource(),
@@ -65,7 +73,7 @@ fn initialise_ui(world: &mut World) {
 
     let hour_transform = crate::utilities::ui::ui_helper::horizontal_grid_transform(7, 8, String::from("test_hour"));
     let header_transform = crate::utilities::ui::ui_helper::header_bar_transform();
-    let ui_text = crate::utilities::ui::ui_helper::create_header_ui_text(font, String::from("23:17 "));
+    let ui_text = crate::utilities::ui::ui_helper::create_header_ui_text(font, String::from(""));
     world
         .create_entity()
         .with(header_transform)
@@ -75,6 +83,7 @@ fn initialise_ui(world: &mut World) {
         .create_entity()
         .with(ui_text)
         .with(hour_transform)
+        .with(TimeComponent)
         .build();
 }
 

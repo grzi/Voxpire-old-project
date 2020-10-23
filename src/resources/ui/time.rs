@@ -1,7 +1,9 @@
 use crate::utilities::traits::Tickable;
 
+const TICK_NB_IN_A_DAY:u16 = 60 * 30;
+
 pub struct TimeResource {
-    pub day_tick: u128,
+    pub day_tick: u16,
     pub day: u8,
     pub week: u8,
     pub year: u16
@@ -17,7 +19,7 @@ impl TimeResource {
         }
     }
 
-    pub fn new_with_values(day_tick: u128, day:u8, week: u8, year: u16) -> Self {
+    pub fn new_with_values(day_tick: u16, day:u8, week: u8, year: u16) -> Self {
         TimeResource {
             day_tick,
             day,
@@ -26,8 +28,28 @@ impl TimeResource {
         }
     }
 
+    pub fn format(&self) -> String{
+        format!("{}, Week {}, Year {}",
+                self.format_day().unwrap_or("Error day"),
+                self.week,
+                self.year)
+    }
+
+    pub fn format_day(&self) -> Option<&str>{
+        match self.day {
+            1 => Some("Sunnudagr"),
+            2 => Some("Mànadagr"),
+            3 => Some("Týsdagr"),
+            4 => Some("Óðinsdagr"),
+            5 => Some("Þórsdagr"),
+            6 => Some("Frjádagr"),
+            7 => Some("Laugardagr"),
+            _ => None
+        }
+    }
+
     fn update_time(&mut self){
-        if self.day_tick >= 24 {
+        if self.day_tick >= TICK_NB_IN_A_DAY {
             self.day_tick = 0;
             self.day += 1;
         }
@@ -65,7 +87,7 @@ mod tests {
     fn test_24_tick_to_switch_day(){
         let mut time = TimeResource::new();
         assert_eq!(1, time.day);
-        for _i in 0..24 {
+        for _i in 0..TICK_NB_IN_A_DAY {
             assert_eq!(1, time.day);
             time.tick();
         }
@@ -77,7 +99,7 @@ mod tests {
         let mut time = TimeResource::new();
         assert_eq!(1, time.week);
         for _i in 0..7 {
-            for _j in 0..24 {
+            for _j in 0..TICK_NB_IN_A_DAY {
                 assert_eq!(1, time.week);
                 time.tick();
             }
@@ -92,7 +114,7 @@ mod tests {
         assert_eq!(0, time.year);
         for _i in 0..52{
             for _i in 0..7 {
-                for _j in 0..24 {
+                for _j in 0..TICK_NB_IN_A_DAY {
                     assert_eq!(0, time.year);
                     time.tick();
                 }
@@ -109,7 +131,7 @@ mod tests {
         assert_eq!(7, time.year);
         for _i in 0..52{
             for _i in 0..7 {
-                for _j in 0..24 {
+                for _j in 0..TICK_NB_IN_A_DAY {
                     assert_eq!(7, time.year);
                     time.tick();
                 }
