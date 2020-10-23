@@ -23,7 +23,7 @@ fn create_config(fullscreen: Option<MonitorIdent>) -> DisplayConfig {
 }
 
 pub fn windowed() -> DisplayConfig {
-    create_config(None)
+    _full_screen()
 }
 
 pub fn _full_screen() -> DisplayConfig {

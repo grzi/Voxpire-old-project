@@ -1,6 +1,4 @@
 use amethyst::ui::{UiTransform, Anchor, ScaleMode, UiText, FontHandle, LineMode, UiImage};
-use amethyst::core::ecs::ReadExpect;
-use amethyst::assets::Loader;
 
 pub fn header_bar_transform() -> UiTransform {
     let mut t = UiTransform::new(
@@ -37,7 +35,7 @@ pub fn create_header_ui_text(font: FontHandle, text: String) -> UiText {
                 text,
                 [0.5, 0.5, 0.5, 1.],
                 30.,
-                LineMode::Wrap,
+                LineMode::Single,
                 Anchor::MiddleRight,
     )
 }
