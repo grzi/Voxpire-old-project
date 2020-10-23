@@ -1,7 +1,7 @@
 use amethyst::core::ecs::{System, Read, ReadStorage, WriteStorage, Join};
-use crate::resources::ui::time::TimeResource;
 use amethyst::ui::UiText;
-use crate::components::ui::time::TimeComponent;
+use crate::ui::time::time_resource::TimeResource;
+use crate::ui::time::TimeComponent;
 
 pub struct TimeSystem;
 
