@@ -13,12 +13,14 @@ use amethyst::ui::TtfFormat;
 use crate::ui::time::time_resource::TimeResource;
 use crate::ui::time::TimeComponent;
 use crate::utilities::traits::Tickable;
+use crate::states::CurrentState;
 
 #[derive(Default)]
 pub struct PocState;
 
 impl SimpleState for PocState {
     fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
+        *data.world.write_resource::<CurrentState>() = CurrentState::InGame;
         let world = data.world;
         initialise_camera(world);
         initialise_lights(world);
