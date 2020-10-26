@@ -10,20 +10,24 @@ use amethyst::renderer::palette::{Srgb, Srgba};
 use amethyst::renderer::rendy::texture::palette::load_from_srgba;
 use amethyst::renderer::{Camera, Material, MaterialDefaults};
 use amethyst::ui::TtfFormat;
-use crate::ui::time::time_resource::TimeResource;
-use crate::ui::time::TimeComponent;
 use crate::utilities::traits::Tickable;
+use crate::states::CurrentState;
+use crate::engines::time::TimeComponent;
+use crate::engines::time::time_resource::TimeResource;
+use crate::engines::terrain::data_model::generate_fake_island;
+use crate::engines::terrain::bloc::Bloc;
 
 #[derive(Default)]
 pub struct PocState;
 
 impl SimpleState for PocState {
     fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
+        *data.world.write_resource::<CurrentState>() = CurrentState::InGame;
         let world = data.world;
         initialise_camera(world);
         initialise_lights(world);
         initialise_ui(world);
-        initialise_cube(world);
+        initialise_cubes(world);
     }
 
     fn update(&mut self, _data: &mut StateData<GameData>) -> SimpleTrans {
@@ -38,8 +42,8 @@ impl SimpleState for PocState {
 
 fn initialise_camera(world: &mut World) {
     let mut transform = Transform::default();
-    transform.set_translation_xyz(-5., -5.0, -10.);
-    transform.face_towards(Vector3::new(0.0, 0.0, 0.0), Vector3::new(0.0, 0.0, 1.0));
+    transform.set_translation_xyz(-5., -5.0, 20.);
+    transform.face_towards(Vector3::new(5.0, 5.0, 5.0), Vector3::new(0.0, 0.0, 1.0));
 
     world
         .create_entity()
@@ -51,7 +55,7 @@ fn initialise_camera(world: &mut World) {
 fn initialise_lights(world: &mut World) {
     let light: Light = PointLight {
         intensity: 100.0,
-        radius: 10.0,
+        radius: 100.0,
         color: Srgb::new(1.0, 1.0, 1.0),
         ..Default::default()
     }
@@ -59,7 +63,7 @@ fn initialise_lights(world: &mut World) {
 
     let mut transform = Transform::default();
 
-    transform.set_translation_xyz(-10., -4.0, -10.0);
+    transform.set_translation_xyz(0., 0.0, 20.);
     world.create_entity().with(light).with(transform).build();
 }
 
@@ -87,7 +91,22 @@ fn initialise_ui(world: &mut World) {
         .build();
 }
 
-fn initialise_cube(world: &mut World) {
+fn initialise_cubes(world: &mut World) {
+    let island = generate_fake_island();
+    island.chunks().iter().for_each(|chunk_column| {
+        chunk_column.into_iter().for_each(|chunk| {
+            chunk.squares().iter().for_each(|square_column|{
+                square_column.iter().for_each(|square| {
+                    square.blocs().iter().for_each(|bloc| {
+                        initialize_cube(world, bloc);
+                    })
+                })
+            })
+        })
+    })
+}
+
+fn initialize_cube(world: &mut World, bloc: &Bloc) {
     let (mesh, mat) = {
         let mesh = world.exec(
             |loader: AssetLoaderSystemData<amethyst::renderer::types::Mesh>| {
@@ -116,7 +135,7 @@ fn initialise_cube(world: &mut World) {
         (mesh, mat)
     };
     let mut trans = Transform::default();
-    trans.set_translation_xyz(-0.5, 0.0, -0.5);
+    trans.set_translation_xyz(*(bloc.coordinates().x()) as f32, *(bloc.coordinates().y()) as f32, bloc.coordinates().z().unwrap() as f32);
     world
         .create_entity()
         .with(mesh)
