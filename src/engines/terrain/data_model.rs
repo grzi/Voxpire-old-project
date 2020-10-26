@@ -1,5 +1,5 @@
 use rand::Rng;
-use amethyst::core::math::{Vector3, Vector2};
+
 use crate::utilities::geometry::coordinates::Coordinates;
 use crate::engines::terrain::chunk::{Chunk, CHUNK_SIZE};
 use crate::engines::terrain::square::Square;

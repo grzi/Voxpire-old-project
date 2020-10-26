@@ -94,7 +94,7 @@ fn initialise_ui(world: &mut World) {
 fn initialise_cubes(world: &mut World) {
     let island = generate_fake_island();
     island.chunks().iter().for_each(|chunk_column| {
-        chunk_column.into_iter().for_each(|chunk| {
+        chunk_column.iter().for_each(|chunk| {
             chunk.squares().iter().for_each(|square_column|{
                 square_column.iter().for_each(|square| {
                     square.blocs().iter().for_each(|bloc| {
