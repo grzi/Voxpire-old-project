@@ -1,11 +1,11 @@
-use amethyst::core::ecs::{System, Write, ReadStorage, WriteStorage, Join, Storage};
+use amethyst::core::ecs::{System, Write, ReadStorage, WriteStorage, Join};
 use amethyst_developer_console::developer_console::DeveloperConsoleResource;
 use log::info;
 use amethyst::renderer::Camera;
 use amethyst::core::Transform;
 use std::num::ParseFloatError;
-use amethyst::shred::{Fetch, FetchMut};
-use amethyst::core::ecs::storage::MaskedStorage;
+
+
 
 use amethyst::core::math::Vector3;
 
@@ -26,7 +26,7 @@ impl<'s> System<'s> for DebugSystem {
     }
 }
 
-fn handle_command(command: String, cameras : ReadStorage<Camera>, mut transforms: WriteStorage<Transform>) {
+fn handle_command(command: String, cameras : ReadStorage<Camera>, transforms: WriteStorage<Transform>) {
     const MOVE_CAMERA: &str = "move_camera ";
     const FOCUS_CAMERA: &str = "focus_camera ";
     const MOVE_LIGHT: &str = "move_light ";

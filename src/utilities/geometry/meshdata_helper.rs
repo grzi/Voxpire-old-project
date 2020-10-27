@@ -1,7 +1,7 @@
 use amethyst::renderer::rendy::mesh::{MeshBuilder, Normal, Position, TexCoord};
 use amethyst::renderer::types::MeshData;
 use amethyst::Error;
-use amethyst::core::math::Vector3;
+
 
 #[derive(Debug)]
 pub struct Modifier {

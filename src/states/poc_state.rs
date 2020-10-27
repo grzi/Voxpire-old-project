@@ -5,7 +5,7 @@ use amethyst::assets::{AssetLoaderSystemData, Handle, Loader};
 use amethyst::core::ecs::{Builder, World, WorldExt};
 use amethyst::core::math::Vector3;
 use amethyst::core::Transform;
-use amethyst::renderer::light::{Light, PointLight, SunLight, DirectionalLight};
+use amethyst::renderer::light::{Light, DirectionalLight};
 use amethyst::renderer::palette::{Srgb, Srgba};
 use amethyst::renderer::rendy::texture::palette::load_from_srgba;
 use amethyst::renderer::{Camera, Material, MaterialDefaults};
@@ -92,7 +92,7 @@ fn initialise_ui(world: &mut World) {
 fn initialise_cubes(world: &mut World) {
     let island = generate_fake_island();
     island.chunks().iter().for_each(|chunk_column| {
-        chunk_column.into_iter().for_each(|chunk| {
+        chunk_column.iter().for_each(|chunk| {
             chunk.squares().iter().for_each(|square_column|{
                 square_column.iter().for_each(|square| {
                     initialize_cube(world, square.blocs().iter().last().unwrap());
