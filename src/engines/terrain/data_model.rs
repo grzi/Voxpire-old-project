@@ -33,7 +33,7 @@ pub fn generate_fake_island() -> IslandTerrain{
                         false,
                         false
                     );
-                    for square_height in 0..(rand::thread_rng().gen_range(3, 12)){
+                    for square_height in 0..(rand::thread_rng().gen_range(3, 8)){
                         square.push_bloc(
                             Bloc::new(Coordinates::new(CHUNK_SIZE * chunk_width + width, CHUNK_SIZE * chunk_height + height, Some(square_height)), BlocType::Dirt)
                         );

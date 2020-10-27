@@ -5,7 +5,7 @@ use amethyst::assets::{AssetLoaderSystemData, Handle, Loader};
 use amethyst::core::ecs::{Builder, World, WorldExt};
 use amethyst::core::math::Vector3;
 use amethyst::core::Transform;
-use amethyst::renderer::light::{Light, PointLight};
+use amethyst::renderer::light::{Light, PointLight, SunLight, DirectionalLight};
 use amethyst::renderer::palette::{Srgb, Srgba};
 use amethyst::renderer::rendy::texture::palette::load_from_srgba;
 use amethyst::renderer::{Camera, Material, MaterialDefaults};
@@ -42,8 +42,8 @@ impl SimpleState for PocState {
 
 fn initialise_camera(world: &mut World) {
     let mut transform = Transform::default();
-    transform.set_translation_xyz(-5., -5.0, 20.);
-    transform.face_towards(Vector3::new(5.0, 5.0, 5.0), Vector3::new(0.0, 0.0, 1.0));
+    transform.set_translation_xyz(-5., -5., 25.);
+    transform.face_towards(Vector3::new(25.0, 25.0, 1.0), Vector3::new(0.0, 0.0, 1.0));
 
     world
         .create_entity()
@@ -53,17 +53,15 @@ fn initialise_camera(world: &mut World) {
 }
 
 fn initialise_lights(world: &mut World) {
-    let light: Light = PointLight {
-        intensity: 100.0,
-        radius: 100.0,
+    let light: Light = DirectionalLight {
         color: Srgb::new(1.0, 1.0, 1.0),
-        ..Default::default()
-    }
-    .into();
-
+        direction:  [0., 0., -1.0].into(),
+        intensity: 1.0,
+    }.into();
     let mut transform = Transform::default();
 
-    transform.set_translation_xyz(0., 0.0, 20.);
+    transform.set_translation_xyz(50., 50.0, 26.);
+
     world.create_entity().with(light).with(transform).build();
 }
 
@@ -97,9 +95,7 @@ fn initialise_cubes(world: &mut World) {
         chunk_column.into_iter().for_each(|chunk| {
             chunk.squares().iter().for_each(|square_column|{
                 square_column.iter().for_each(|square| {
-                    square.blocs().iter().for_each(|bloc| {
-                        initialize_cube(world, bloc);
-                    })
+                    initialize_cube(world, square.blocs().iter().last().unwrap());
                 })
             })
         })
@@ -114,13 +110,14 @@ fn initialize_cube(world: &mut World, bloc: &Bloc) {
             },
         );
 
+
         let textures = &world.read_resource();
         let mat_defaults = &world.read_resource::<MaterialDefaults>();
         let materials = &world.read_resource();
         let loader = &world.read_resource::<Loader>();
 
         let albedo = loader.load_from_data(
-            load_from_srgba(Srgba::new(0.4, 0.5, 0.3, 1.0)).into(),
+            load_from_srgba(Srgba::new(0., 0.4, 0., 1.0)).into(),
             (),
             textures,
         );

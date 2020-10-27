@@ -1,7 +1,7 @@
 use crate::utilities::geometry::coordinates::Coordinates;
 use crate::engines::terrain::square::Square;
 
-pub const CHUNK_SIZE: u16 = 5;
+pub const CHUNK_SIZE: u16 = 20;
 
 #[derive(Debug)]
 pub struct Chunk {
